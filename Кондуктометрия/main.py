@@ -16,11 +16,11 @@ def calculation(concentration, kappa, lim_lambda_plus, lim_lambda_minus, KD_th, 
     alpha = lambda_ / lim_lambda
     KD_array = concentration * np.power(alpha, 2) / (1 - alpha)
     x = 1 / lambda_  # Сименс * см^2 / моль
-    y = lambda_ * concentration
+    y = lambda_ * concentration * 10
     b, a = LSM(x, y)
     plt.plot(x, y, '.')
     plt.plot(x, x * b + a, '-', linewidth=1)
-    plt.xlabel(r'$\lambda$c, См $\cdot$ см$^{2}$/л', size=14)
+    plt.xlabel(r'$\lambda$c, См/см', size=14)
     plt.ylabel(r'$\frac{1}{\lambda}$, моль/(См $\cdot$ см$^{2})$', size=14)
     plt.savefig('{}1.png'.format(name))
     plt.show()
@@ -44,7 +44,7 @@ def calculation(concentration, kappa, lim_lambda_plus, lim_lambda_minus, KD_th, 
     b_ckappa, a_ckappa = LSM(concentration, kappa)
 
     plt.plot(concentration, kappa, '.')
-    plt.plot(concentration, b_ckappa * concentration + a_ckappa, '-', linewidth=1)
+    # plt.plot(concentration, b_ckappa * concentration + a_ckappa, '-', linewidth=1)
     plt.xlabel(r'c, моль/л', size=14)
     plt.ylabel(r'$\varkappa$, См/см', size=14)
     plt.savefig('{} c(kappa).png'.format(name))
@@ -73,8 +73,8 @@ KD_th_vinegar = 1.74 * 10 ** (-5)
 calculation(concentration_vinegar, kappa_vinegar, lim_lambda_plus_vinegar, lim_lambda_minus_vinegar, KD_th_vinegar, 'Уксусная')
 
 
-concentration_ant = np.array([13, 6.5, 3.25, 1.625, 0.8125]) # моль/литр
-kappa_ant = np.array([0.00296, 8.25, 10.01, 6.77, 5.22]) * 10 ** (-3) # Сименс/см
+concentration_ant = np.array([6.5, 3.25, 1.625, 0.8125]) # моль/литр
+kappa_ant = np.array([8.25, 10.01, 6.77, 5.22]) * 10 ** (-3) # Сименс/см
 lim_lambda_plus_ant = 349.80
 lim_lambda_minus_ant = 54.60  # Сименс * см^2 / моль
 KD_th_ant = 1.772 * 10 ** (-4)
